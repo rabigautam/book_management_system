@@ -30,8 +30,9 @@ func DeleteBookById(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 	book := models.DeleteBookById(ID)
-	w.WriteHeader(http.StatusOK)
 	res, _ := json.Marshal(book)
+	w.Header().Set("Content-Type","application/json")
+	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 
 }
@@ -44,8 +45,10 @@ func GetBookById(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 	bookDetails, _ := models.GetBookById(id)
-	w.WriteHeader(http.StatusOK)
 	book,_:=json.Marshal(bookDetails)
+	w.Header().Set("Content-Type","application/json")
+	w.WriteHeader(http.StatusOK)
+
 	w.Write(book)
 }
 
