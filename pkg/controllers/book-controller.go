@@ -2,8 +2,11 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"strconv"
 
+	"github.com/gorilla/mux"
 	"github.com/rabigautam/book_management_system/pkg/models"
 	"github.com/rabigautam/book_management_system/pkg/utils"
 )
@@ -17,4 +20,18 @@ func CreateBook(w http.ResponseWriter, r *http.Request) {
 	res, _ := json.Marshal(b)
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
+}
+
+func DeleteBookById(w http.ResponseWriter,r *http.Request){
+	params:=mux.Vars(r)
+	bookId:=params["id"]
+	ID,err:=strconv.ParseInt(bookId,0,0)
+	if err!=nil{
+		fmt.Println(err)
+	}
+	book:=models.DeleteBookById(ID)
+	w.WriteHeader(http.StatusOK)
+	res,_:=json.Marshal(book)
+	w.Write(res)
+
 }

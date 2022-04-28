@@ -25,3 +25,9 @@ func (b *Book) CreateBook() *Book{
 	db.Create(&b)
 	return b
 }
+
+func DeleteBookById(ID int64)Book{
+	var book Book
+	db.Where("ID=?",ID).Delete(book)
+	return book
+}
